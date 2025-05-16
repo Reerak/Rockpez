@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rockpez - Redefining E-commerce</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #000; color: #fff; margin: 0; padding: 0; overflow-x: hidden; scroll-behavior: smooth; font-family: 'Poppins', sans-serif; }
+        .container { width: 85%; max-width: 1200px; margin: auto; padding: 4rem 0; }
+
+        .navigation { position: fixed; top: 0; width: 100%; padding: 1rem 0; background-color: #000; z-index: 1000; border-bottom: 1px solid #333; }
+        .navigation ul { display: flex; justify-content: center; gap: 2rem; list-style: none; }
+        .navigation a { text-decoration: none; color: #fff; font-weight: 600; transition: color 0.3s; }
+        .navigation a:hover { color: #888; }
+        .navigation a.active { color: #ccc; border-bottom: 2px solid #ccc; }
+
+        .headerSection { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #000, #111); background-size: 200% 200%; animation: gradientShift 10s infinite; }
+        .headerSection h1 { font-size: 4rem; font-weight: 600; margin-bottom: 1rem; }
+        .headerSection p { font-size: 1.2rem; color: #ccc; max-width: 700px; text-align: center; }
+
+        .section { padding: 8rem 2rem; background-color: #111; text-align: center; }
+        .section:nth-child(even) { background-color: #1a1a1a; }
+        .section h2 { font-size: 2.5rem; font-weight: 600; margin-bottom: 1rem; }
+        .section p { font-size: 1.1rem; color: #ccc; max-width: 600px; margin: auto; }
+
+        .ctaButton { background-color: #fff; color: #000; padding: 1rem 2rem; border: none; cursor: pointer; transition: background-color 0.3s; }
+        .ctaButton:hover { background-color: #ccc; }
+
+        .footerSection { background-color: #000; padding: 4rem; text-align: center; color: #777; }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+<style>
+        .scrollIndicator { position: fixed; top: 50%; left: 1rem; transform: translateY(-50%); z-index: 1000; }
+        .scrollIndicator div { width: 12px; height: 12px; background-color: #555; margin-bottom: 10px; border-radius: 50%; transition: background-color 0.3s, transform 0.3s; cursor: pointer; }
+        .scrollIndicator div.active { background-color: #fff; transform: scale(1.2); }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Indicator -->
+    <div class="scrollIndicator">
+        <div data-section="#aboutSection"></div>
+        <div data-section="#howSection"></div>
+        <div data-section="#contactSection"></div>
+    </div>
+
+    <nav class="navigation">
+        <ul>
+            <li><a href="#aboutSection">About</a></li>
+            <li><a href="#howSection">How It Works</a></li>
+            <li><a href="#contactSection">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="headerSection">
+        <h1>Rockpez</h1>
+        <p>Shop with a Text. No Apps. No Logins.</p>
+    </section>
+
+    <section class="section" id="aboutSection">
+        <h2>About Rockpez</h2>
+        <p>Text. Shop. Pay. Simple.</p>
+    </section>
+
+    <section class="section" id="howSection">
+        <h2>How It Works</h2>
+        <div style="display: flex; justify-content: space-between; max-width: 1000px; margin: auto; gap: 2rem;">
+            <div>
+                <h3>Text Us</h3>
+                <p>Tell us what you need.</p>
+            </div>
+            <div>
+                <h3>Get Options</h3>
+                <p>Choose from top deals.</p>
+            </div>
+            <div>
+                <h3>Confirm & Pay</h3>
+                <p>Complete your order.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contactSection">
+        <h2>Contact Us</h2>
+        <form action="#" method="post" onsubmit="handleFormSubmit(event)" style="max-width: 600px; margin: auto;">
+            <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 1rem; margin-bottom: 1rem;">
+            <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 1rem; margin-bottom: 1rem;">
+            <textarea name="message" placeholder="Your Message" rows="5" required style="width: 100%; padding: 1rem; margin-bottom: 1rem;"></textarea>
+            <button type="submit" class="ctaButton">Submit</button>
+        </form>
+    </section>
+
+    <footer class="footerSection">
+        <p>© 2025 Rockpez. E-commerce, Simplified.</p>
+    </footer>
+
+<script>
+function handleFormSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    form.innerHTML += '<p style="color: #0f0; margin-top: 1rem;">Thank you for contacting us. We will get back to you shortly.</p>';
+}
+</script>
+
+<script>
+    const indicators = document.querySelectorAll('.scrollIndicator div');
+
+    window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                indicators[index].classList.add('active');
+            }
+        });
+    });
+
+    indicators.forEach(indicator => {
+        indicator.addEventListener('click', function() {
+            const target = document.querySelector(this.getAttribute('data-section'));
+            target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+</script>
+</body>
+</html>
